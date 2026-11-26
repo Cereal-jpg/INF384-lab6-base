@@ -1,6 +1,6 @@
 # Plan de implementación: Cursos habilitados
 
-- [ ] 1. Escribir los tests de `POST /habilitados` (deben fallar)
+- [x] 1. Escribir los tests de `POST /habilitados` (deben fallar)
   - Crear `tests/habilitados.test.js` con supertest, al menos un test por criterio
   - Hacer push para dejar el run en rojo como evidencia
   - _Requisitos: 1.1–1.7, 2.1–2.3, 3.1–3.4, 4.1, 4.2_
