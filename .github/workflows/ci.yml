@@ -6,8 +6,27 @@ on:
   pull_request:
     branches: [main]
 
+permissions:
+  contents: read
+
 jobs:
-  build:
+  # Gate de secretos: bloquea. Primera etapa, revisa todo el historial.
+  secretos:
+    name: Secretos (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: gitleaks sobre todo el historial
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # Gate de SCA: bloquea con vulnerabilidades high o critical en dependencias de producción.
+  sca:
+    name: SCA (npm audit)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -20,5 +39,40 @@ jobs:
       - name: Instalar dependencias
         run: npm ci
 
-      - name: Ejecutar pruebas
+      - name: npm audit (high/critical bloquea)
+        run: npm audit --audit-level=high --omit=dev
+
+  # Pruebas y gate de cobertura (80 % de líneas en jest.config.js): bloquea.
+  test:
+    name: Pruebas y cobertura
+    needs: [secretos, sca]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Instalar dependencias
+        run: npm ci
+
+      - name: Ejecutar pruebas con cobertura
         run: npm test
+
+  # Gate de SAST (extra): avisa. Publica alertas en Security sin bloquear el merge.
+  sast:
+    name: SAST (CodeQL)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      security-events: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: github/codeql-action/init@v3
+        with:
+          languages: javascript
+
+      - uses: github/codeql-action/analyze@v3
