@@ -26,7 +26,7 @@
   - Agregar `tests/formato.test.js` para `src/util/formato.js`
   - _Requisitos: 5.1_
 
-- [ ] 6. Agregar los gates de SCA, secretos y SAST a `.github/workflows/ci.yml`
+- [x] 6. Agregar los gates de SCA, secretos y SAST a `.github/workflows/ci.yml`
   - Job `secretos` con gitleaks (`fetch-depth: 0`), job `sca` con `npm audit --audit-level=high --omit=dev`, job `sast` con CodeQL en modo aviso
   - Hacer push sin corregir nada para registrar el run en rojo
   - Corregir: actualizar `lodash` a 4.18.1, rotar `CATALOGO_API_KEY`, reemplazarla por un placeholder y registrar el hallazgo histórico en `.gitleaksignore` con su razón

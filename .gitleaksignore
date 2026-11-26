@@ -1,0 +1,6 @@
+# CATALOGO_API_KEY de config/ejemplo.env, introducida en el commit inicial 7506fec.
+# La clave fue rotada (el valor del historial ya no es válido) y el archivo ahora
+# solo tiene un placeholder vacío. El hallazgo sigue en el historial porque no se
+# reescribe la historia de main; se registra aquí para que el gate no bloquee por
+# una clave ya revocada. Cualquier secreto nuevo sigue bloqueando el pipeline.
+7506fecff32b342baaa4aa5dcb595bb5ccc75634:config/ejemplo.env:generic-api-key:4
