@@ -5,7 +5,7 @@
   - Hacer push para dejar el run en rojo como evidencia
   - _Requisitos: 1.1–1.7, 2.1–2.3, 3.1–3.4, 4.1, 4.2_
 
-- [ ] 2. Implementar `habilitados(aprobados)` y `existe(codigo)` en el repositorio
+- [x] 2. Implementar `habilitados(aprobados)` y `existe(codigo)` en el repositorio
   - Filtrar los cursos no aprobados con todos sus requisitos en el `Set`
   - Ordenar por ciclo (electivos al final) y luego por id; devolver `{id, name, credits, cycle, type}`
   - Tests unitarios en `tests/repositorio.test.js`

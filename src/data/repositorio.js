@@ -19,4 +19,31 @@ function obtener(codigo) {
   return porCodigo.get(codigo);
 }
 
-module.exports = { listar, listarPorCiclo, obtener };
+function existe(codigo) {
+  return porCodigo.has(codigo);
+}
+
+// Orden: ciclo ascendente, electivos (cycle null) al final, luego por id.
+function compararPorCicloEId(a, b) {
+  const cicloA = a.cycle === null ? Infinity : a.cycle;
+  const cicloB = b.cycle === null ? Infinity : b.cycle;
+  if (cicloA !== cicloB) {
+    return cicloA - cicloB;
+  }
+  return a.id.localeCompare(b.id);
+}
+
+/**
+ * Cursos no aprobados cuyos requisitos están todos en `aprobados`.
+ * Requisitos 1.1–1.7 del spec habilitados.
+ * @param {Set<string>} aprobados
+ */
+function habilitados(aprobados) {
+  return listar()
+    .filter((curso) => !aprobados.has(curso.id))
+    .filter((curso) => curso.prerequisites.every((req) => aprobados.has(req)))
+    .sort(compararPorCicloEId)
+    .map(({ id, name, credits, cycle, type }) => ({ id, name, credits, cycle, type }));
+}
+
+module.exports = { listar, listarPorCiclo, obtener, existe, habilitados };

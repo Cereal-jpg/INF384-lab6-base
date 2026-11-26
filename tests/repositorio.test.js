@@ -47,4 +47,36 @@ describe('repositorio de cursos', () => {
       expect(repositorio.obtener('XXX999')).toBeUndefined();
     });
   });
+
+  describe('existe(codigo)', () => {
+    test('devuelve true para un curso de la malla y false si no existe', () => {
+      expect(repositorio.existe('INF386')).toBe(true);
+      expect(repositorio.existe('ABC123')).toBe(false);
+    });
+  });
+
+  describe('habilitados(aprobados)', () => {
+    test('con el ejemplo del pedido devuelve 27 cursos', () => {
+      const resultado = repositorio.habilitados(new Set(['1INF25', '1INF27', '1INF49']));
+
+      expect(resultado).toHaveLength(27);
+      expect(resultado.map((c) => c.id)).toEqual(
+        expect.arrayContaining(['1INF29', '1INF30', '1INF31', '1INF32']),
+      );
+    });
+
+    test('no incluye prerequisites en cada curso devuelto', () => {
+      const [curso] = repositorio.habilitados(new Set());
+
+      expect(curso).not.toHaveProperty('prerequisites');
+    });
+
+    test('ubica los electivos (cycle null) al final', () => {
+      const resultado = repositorio.habilitados(new Set());
+      const primerElectivo = resultado.findIndex((c) => c.cycle === null);
+
+      expect(primerElectivo).toBeGreaterThan(-1);
+      expect(resultado.slice(primerElectivo).every((c) => c.cycle === null)).toBe(true);
+    });
+  });
 });
