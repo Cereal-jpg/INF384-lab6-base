@@ -19,10 +19,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Se usa el CLI y no gitleaks-action: en eventos push la action solo escanea
+      # los commits del push, y un secreto de un commit anterior pasaba sin detectarse.
+      - name: Instalar gitleaks
+        run: |
+          curl -sSfL https://github.com/gitleaks/gitleaks/releases/download/v8.24.3/gitleaks_8.24.3_linux_x64.tar.gz \
+            | tar -xz gitleaks
+
       - name: gitleaks sobre todo el historial
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gitleaks git . --redact --verbose
 
   # Gate de SCA: bloquea con vulnerabilidades high o critical en dependencias de producción.
   sca:
