@@ -21,7 +21,7 @@
   - No enviar nunca `err.message` ni `err.stack`
   - _Requisitos: 2.2, 2.3, 3.2, 3.3_
 
-- [ ] 5. Asegurar cobertura de líneas ≥ 80 %
+- [x] 5. Asegurar cobertura de líneas ≥ 80 %
   - Agregar `coverageThreshold: { global: { lines: 80 } }` en `jest.config.js` y `--coverage` al script de test
   - Agregar `tests/formato.test.js` para `src/util/formato.js`
   - _Requisitos: 5.1_
