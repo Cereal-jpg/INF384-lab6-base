@@ -19,6 +19,13 @@ app.use('/habilitados', require('./routes/habilitados'));
 // Never leaks internal details to clients.
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
+  // Errores del parser de express.json: son errores del cliente, no del servidor.
+  if (err.type === 'entity.parse.failed') {
+    return res.status(400).json({ error: 'cuerpo JSON inválido' });
+  }
+  if (err.type === 'entity.too.large') {
+    return res.status(413).json({ error: 'solicitud demasiado grande' });
+  }
   console.error(err);
   res.status(500).json({ error: 'error interno del servidor' });
 });
