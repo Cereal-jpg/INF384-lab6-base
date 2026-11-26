@@ -4,7 +4,7 @@ const repositorio = require('./data/repositorio');
 
 const app = express();
 
-app.use(express.json());
+app.use(express.json({ limit: '10kb' }));
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.get('/health', (req, res) => {
@@ -12,6 +12,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/cursos', require('./routes/cursos'));
+app.use('/habilitados', require('./routes/habilitados'));
 
 // Generic error-handling middleware — must be declared after all routes.
 // Catches any error passed via next(err) or thrown inside async handlers.

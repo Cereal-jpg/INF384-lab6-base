@@ -11,7 +11,7 @@
   - Tests unitarios en `tests/repositorio.test.js`
   - _Requisitos: 1.1–1.7_
 
-- [ ] 3. Implementar la ruta `POST /habilitados` con validación de entrada
+- [x] 3. Implementar la ruta `POST /habilitados` con validación de entrada
   - Crear `src/routes/habilitados.js` y validar en el orden del design (tipo → tamaño → formato → existencia)
   - Montar en `src/app.js` con `express.json({ limit: '10kb' })`
   - _Requisitos: 2.1, 3.1, 3.4, 4.1, 4.2_
