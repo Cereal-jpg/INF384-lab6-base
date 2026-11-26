@@ -32,6 +32,6 @@
   - Corregir: actualizar `lodash` a 4.18.1, rotar `CATALOGO_API_KEY`, reemplazarla por un placeholder y registrar el hallazgo histórico en `.gitleaksignore` con su razón
   - _Requisitos: política de TI (sin vulnerabilidades high/critical, sin secretos)_
 
-- [ ] 7. Completar `TRAZABILIDAD.md`
+- [x] 7. Completar `TRAZABILIDAD.md`
   - Cada requisito no funcional (2.x, 3.x, 4.x, 5.1 y la política de TI) con su gate o test, el run fallido y el run corregido
   - Dos cambios hechos a la propuesta de Kiro, con su razón
