@@ -11,7 +11,7 @@ Endpoint `POST /habilitados` que calcula en memoria los cursos que el alumno pue
 | `src/data/repositorio.js` | Nueva función `habilitados(aprobados)`: recibe un `Set` de códigos y devuelve los cursos no aprobados cuyos `prerequisites` están todos en el `Set`, ordenados por ciclo e id. También `existe(codigo)`. |
 | `src/routes/habilitados.js` | Valida el cuerpo en el orden definido abajo y traduce el resultado a la respuesta HTTP. |
 | `src/app.js` | Usa `express.json({ limit: '10kb' })`, monta el router en `/habilitados` y registra el middleware de errores al final. |
-| Middleware de errores | `entity.parse.failed` → 400 `cuerpo JSON inválido`; `entity.too.large` → 413 `solicitud demasiado grande`; cualquier otro error → 500 `error interno`. Nunca envía `err.message` ni `err.stack` al cliente. |
+| Middleware de errores | `entity.parse.failed` → 400 `cuerpo JSON inválido`; `entity.too.large` → 413 `solicitud demasiado grande`; cualquier otro error → 500 `error interno del servidor`. Nunca envía `err.message` ni `err.stack` al cliente. |
 
 ## Contrato
 
@@ -40,7 +40,7 @@ Errores con la forma `{ "error": "<mensaje>" }`:
 | Código válido que no existe en la malla | 400 | `curso desconocido: <codigo>` | 3.4 |
 | JSON mal formado | 400 | `cuerpo JSON inválido` | 3.2 |
 | Cuerpo mayor a 10 kb | 413 | `solicitud demasiado grande` | 2.2, 2.3 |
-| Error no controlado | 500 | `error interno` | 3.3 |
+| Error no controlado | 500 | `error interno del servidor` | 3.3 |
 
 ## Orden de validación
 
@@ -81,7 +81,7 @@ El tamaño se revisa antes de recorrer los elementos para no gastar CPU en lista
 
 - `tests/habilitados.test.js` con supertest sobre `src/app.js`, al menos un test por criterio 1.1 a 4.2.
 - 2.3 se mide con `Date.now()` antes y después de la solicitud de 5000 códigos.
-- 3.3 se provoca con `jest.spyOn(repositorio, 'habilitados')` lanzando un `Error` cuyo mensaje contiene `C:\apps\malla\src\`; se verifica que el cuerpo sea exactamente `{"error":"error interno"}`.
+- 3.3 se provoca con `jest.spyOn(repositorio, 'habilitados')` lanzando un `Error` cuyo mensaje contiene `C:\apps\malla\src\`; se verifica que el cuerpo sea exactamente `{"error":"error interno del servidor"}`.
 - Tests de `repositorio.habilitados` con los datos reales.
 - Tests de `src/util/formato.js` para que la cobertura total no baje de 80 %.
 - 5.1 se verifica con el gate de cobertura en CI.

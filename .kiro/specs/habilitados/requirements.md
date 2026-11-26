@@ -54,7 +54,7 @@ Funcionalidad para que un alumno envíe los cursos que ya aprobó y reciba los c
 
 3.2 SI el cuerpo no es JSON válido, ENTONCES EL sistema DEBE responder 400 con `{"error":"cuerpo JSON inválido"}`.
 
-3.3 SI ocurre un error no controlado al procesar `POST /habilitados`, ENTONCES EL sistema DEBE responder 500 con exactamente `{"error":"error interno"}`, sin el texto `at `, `C:\`, `/src/` ni el mensaje original del error.
+3.3 SI ocurre un error no controlado al procesar `POST /habilitados`, ENTONCES EL sistema DEBE responder 500 con exactamente `{"error":"error interno del servidor"}`, sin el texto `at `, `C:\`, `/src/` ni el mensaje original del error.
 
 3.4 SI algún código es válido pero no existe en la malla, ENTONCES EL sistema DEBE responder 400 con `{"error":"curso desconocido: <codigo>"}`.
 

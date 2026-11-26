@@ -17,7 +17,7 @@
   - _Requisitos: 2.1, 3.1, 3.4, 4.1, 4.2_
 
 - [ ] 4. Ajustar el middleware de errores
-  - `entity.parse.failed` → 400, `entity.too.large` → 413, resto → 500 `{"error":"error interno"}`
+  - `entity.parse.failed` → 400, `entity.too.large` → 413, resto → 500 `{"error":"error interno del servidor"}`
   - No enviar nunca `err.message` ni `err.stack`
   - _Requisitos: 2.2, 2.3, 3.2, 3.3_
 
